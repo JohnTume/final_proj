@@ -13,16 +13,16 @@ library(shiny)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Number of Firearm Provisions vs Number of Gun Violence Incidents (by state); Data from 2016"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
+      radioButtons("selected_incident_type", label = h3("Select Incident Type"),
+                   choices = list("Accidental Children Deaths" = "accident_children", "Accidental Teen Deaths" = "accident_teen", 
+                                  "Accidental Adult Deaths" = "accident_adult", "Incidents Involving Police Officers" = "police", 
+                                  "2015 Mass Shootings" = "2015_mass_shootings", "2016 Mass Shootings" = "2016_mass_shootings"),
+                   selected = "accident_children")
     ),
     
     # Show a plot of the generated distribution
