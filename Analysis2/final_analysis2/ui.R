@@ -19,15 +19,21 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       radioButtons("selected_incident_type", label = h3("Select Incident Type"),
-                   choices = list("Accidental Children Deaths" = "accident_children", "Accidental Teen Deaths" = "accident_teen", 
-                                  "Accidental Adult Deaths" = "accident_adult", "Incidents Involving Police Officers" = "police", 
-                                  "2015 Mass Shootings" = "2015_mass_shootings", "2016 Mass Shootings" = "2016_mass_shootings"),
-                   selected = "accident_children")
+                   choices = list("Accidental Children Deaths" = "data/gun-violence-database/accidental_deaths_children.csv", 
+                                  "Accidental Teen Deaths" = "data/gun-violence-database/accidental_deaths_teens.csv", 
+                                  "Accidental Adult Deaths" = "data/gun-violence-database/accidental_deaths.csv", 
+                                  "Accidental Children Injuries" = "data/gun-violence-database/accidental_injuries_children.csv",
+                                  "Accidental Teen Injuries" = "data/gun-violence-database/accidental_injuries_teens.csv",
+                                  "Accidental Adult Injuries" = "data/gun-violence-database/accidental_injuries.csv",
+                                  "Incidents Involving Police Officers" = "data/gun-violence-database/officer_involved_shootings.csv", 
+                                  "Mass Shootings in 2016" = "data/gun-violence-database/mass_shootings_2016.csv"),
+                   selected = "data/gun-violence-database/accidental_deaths_children.csv")
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("distPlot")
+       textOutput("textTest"),
+       plotOutput("shootingPlot")
     )
   )
 ))
