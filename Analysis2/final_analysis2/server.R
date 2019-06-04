@@ -26,8 +26,8 @@ transform_data <- function(data){
   return(data)
 }
 
-# function that returns a data frame with the number of gun violence incidents of a given type in a given state in 2016
-# takes in the type of incident that the user selects
+# function that plots the number of gun violence incidents of a given type in all applicable states in 2016
+# takes in the type of incident that the user selects, uses it to read in appropriate file
 shooting_frequency_with_ordinances <- function(incident_type){
   selected_data <- transform_data(read.csv(paste0(incident_type)))
   frequencies <- as.data.frame(table(selected_data$State))
@@ -36,17 +36,30 @@ shooting_frequency_with_ordinances <- function(incident_type){
   total_frame %>% 
     ggplot(aes(x = Freq, y = lawtotal)) +
     geom_point(size = 4) +
-    geom_smooth(method="lm", se=FALSE, fullrange=TRUE, level=0.95)
+    geom_smooth(method="lm", se=FALSE, fullrange=TRUE, level=0.95) +
+    labs(x = "Number of occurrences of gun violence incidents", y = "Number of gun provisions (max: 133)") +
+    theme(axis.title = element_text(size = 16),
+          axis.text = element_text(size = 16))
 }
 
-# Define server logic required to draw a histogram
+
+# Define server logic required to draw scatterplot
 shinyServer(function(input, output) {
-   output$shootingPlot <- renderPlot({
+   output$shootingPlot <- renderPlot ({
      shooting_frequency_with_ordinances(input$selected_incident_type)
    })
    
-   output$textTest <- renderText({
-     paste(input$selected_incident_type)
+   output$analysis1 <- renderText ({
+     print("The plots shown above display data taken from the Gun Violence Archive on the number of instances of gun violence
+           that occur in each state. The original data also separates occurrences of gun violence by the type of violence
+           that occurred (e.g. incidents involving police officers).")
    })
-  
+   
+   output$analysis2 <- renderText({
+     print("Some interesting results are that, in general, there is a roughly negative correlatio between the number of gun provisions
+           and the number of gun violence incidents -- that is to say that (again, in general) the amount of accidental gun violence
+           tends to decrease with a greater number of gun ownership provisions. However, mass shootings in 2016 and police involvement
+           in gun violence seemed to roughly increase with the number of gun provisions.")
+   })
+   
 })

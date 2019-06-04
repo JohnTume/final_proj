@@ -32,8 +32,10 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-       textOutput("textTest"),
-       plotOutput("shootingPlot")
+       plotOutput("shootingPlot"),
+       hr(),
+       textOutput("analysis1"),
+       textOutput("analysis2")
     )
   )
 ))
