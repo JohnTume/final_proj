@@ -2,20 +2,25 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(zoo)
 
-## gun_violence_data <- read.csv("data/gun-violence-data_01-2013_03-2018.csv")
-## background_checks_data <- read.csv("data/nics-firearm-background-checks.csv")
+##gun_violence_data <- read.csv("data/gun-violence-data_01-2013_03-2018.csv")
+##background_checks_data <- read.csv("data/nics-firearm-background-checks.csv")
+
+gun_violence_data$date <- as.Date(as.yearmon(gun_violence_data$date))
+background_checks_data$month <- as.Date(as.yearmon(background_checks_data$month))
 
 gun_violence_filtered <-
   gun_violence_data %>%
   group_by(date) %>%
-  select(date, state)
+  select(date, state,)
 
 gun_violence_tallied <-
   gun_violence_filtered %>%
   group_by(date, state) %>%
   tally()
 
+View(gun_violence_tallied)
 background_checks_filtered <-
   background_checks_data %>%
   group_by(month) %>%
