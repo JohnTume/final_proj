@@ -2,11 +2,11 @@ library(ggplot2)
 library(dplyr)
 library(lubridate)
 library(zoo)
-data <- read.csv("data/nics-firearm-background-checks.csv", stringsAsFactors = FALSE)
+#check_data <- read.csv("data/nics-firearm-background-checks.csv", stringsAsFactors = FALSE)
 #violence_data <- read.csv("data/gun-violence-data_01-2013_03-2018.csv", stringsAsFactors = FALSE)
 data <- read.csv("data/raw_data.csv", stringsAsFactors = FALSE)
 
-data$month <- as.Date(as.yearmon(check_data$month))
+
 
 # plot the sale tendency in state
 get_total_check <- function(state_name){
@@ -28,30 +28,7 @@ get_change <- function(state_name){
 ################################
 map <- map_data("state")
 
-filtered_data <- data %>% filter(year == "2000")
-
-ggplot() +
-  geom_map(data=map,
-           map=map,
-           aes(long, lat, map_id = region),
-           fill="white", color="white", size=0.15) +
-  geom_map(data=filtered_data,
-           map=map,
-           aes(fill=totals, map_id=tolower(state)), 
-           color="white", size=0.15) +
-  scale_fill_continuous(low='thistle2', high='darkred', 
-                                 guide='colorbar') +
-  coord_map() +
-  labs(title = paste0("total number of law in each state"))
-
-
-
-
-
-
-map <- map_data("state")
-
-filtered_data <- data %>% filter(year == as.character(input$years))
+filtered_data <- data %>% filter(year == "2017")
 
 ggplot() +
   geom_map(data=map,
@@ -62,18 +39,7 @@ ggplot() +
            map=map,
            aes(fill=lawtotal, map_id=tolower(state)), 
            color="white", size=0.15) +
-  coord_map() +
-  labs(title = paste0("total number of law in each state")) +
-  #scale_fill_gradient() +
   scale_fill_continuous(low='thistle2', high='darkred', 
-                        guide='colorbar') 
-
-
-
-
-filtered_data <- data %>% 
-  mutate(state = tolower(state)) %>% 
-  filter(state == "california")
-
-ggplot(filtered_data) +
-  geom_line(mapping = aes(x = year, y = lawtotal))
+                                 guide='colorbar') +
+  coord_map() +
+  labs(title = paste0("total number of law in each state"))
