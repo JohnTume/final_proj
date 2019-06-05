@@ -43,15 +43,31 @@ ui <- fluidPage(
   p("- Xiangyu Zhou"),
   p("- Navjyot Sandhu"),
   p("- John Tumenbayar"),
-  p("- Ivan Lancaster")
+  p("- Ivan Lancaster"),
   
+  titlePanel("Summary and Conclusions"),
+  sidebarLayout(
+     
+     sidebarPanel( h1("What Did We Find?")
+                   ),
+     mainPanel(
+      p("When analyzing the amount of firearm regulations by year and state, we found that there was generally a nationwide increase in the amount of regulations, although the amount of regulations in states varied dramatically. We found that coastal states, such as Massachusetts and California, have much more regulations on firearms than states such as Idaho and Kentucky. Areas that have a more concentrated population tend to have a higher amount of gun regulation as well. This could be due to a higher level of crime which may lead these areas to pass more gun legislation."),
+      br(),
+      br(),
+      p("When analyzing the data regarding the correlation between gun violence and the level of provisions available in a state, we discovered that there seems to be a negative correlation between the number of gun provisions and the amount of gun violence in the state. In other words, the amount of gun violence found in a state seems to fall when the amount of gun provisions increases, and vice versa. There is data, however, that shows that mass shootings and gun violence on the part of police officers increases when the amount of gun provisions increases."),
+      br(),
+      br(),
+      p("Overall, it seems to be that more gun regulations does not directly lead to a substantial decrease in gun violence. Therefore, it may be that gun violence is an issue that may be better solved with some additional gun regulations, but with increased focus on other social issues facing the United States. ")
 
-  
-
-
-
-  
+     )
+  )
 )
+  
+
+
+
+  
+
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {

@@ -25,14 +25,17 @@ ui <- fluidPage(
                       
                       # Introduce the data
                       h2("- Data"),
-                      p("1. background checking data:
-    Comes from the FBI's National Instant Criminal Background Check System.
+                      p("1. ",
+                      a("background checking data:", href = "https://github.com/BuzzFeedNews/nics-firearm-background-checks"),
+    "Comes from the FBI's National Instant Criminal Background Check System.
     Provides data on number of firearm checks by month, state, and type"),
-                      p("2. gun violence data set
-    This dataset is comprised of a collection of incidents involving gun violence between January 1, 2013 to March 31, 2018 from http://www.gunviolencearchive.org.
+                      p("2. ",
+                      a("gun violence data set:", href = "https://www.kaggle.com/gunviolencearchive/gun-violence-database"),
+    "This dataset is comprised of a collection of incidents involving gun violence between January 1, 2013 to March 31, 2018 from http://www.gunviolencearchive.org.
     Provides data on date, location, number of deaths/injuries, congressional district, etc."),
-                      p("3. Provisions data set
-    Covers all 50 states from 1991 through 2017
+                      p("3. ",
+                        a("provisions data set:", href = "https://www.kaggle.com/jboysen/state-firearms"),
+    "Covers all 50 states from 1991 through 2017
     Includes data regarding the amount of regulations covering the sale of ammunition, such as licenses, background checks, and minimum age to legally purchase ammunition. 
     "),
                       
@@ -56,7 +59,7 @@ ui <- fluidPage(
                       p("- John Tumenbayar"),
                       p("- Ivan Lancaster")
              ),
-             tabPanel("Analysis1",
+             tabPanel("Years & States",
                       titlePanel("Number of Gun Legislation In States Over Year"),
                       hr(),
                       p("The map depicts the number of firearm laws in all the states over year (1991 - 2017), as the state with deeper color has more gun legislation in the given year. The line chart below shows the change of number of gun legislations in a selected state over year."),
@@ -86,7 +89,7 @@ ui <- fluidPage(
                         )
                       )
              ),
-             tabPanel("Analysis2",
+             tabPanel("Gun Violence",
                       # Application title
                       titlePanel("Number of Firearm Provisions vs Number of Gun Violence Incidents (by state); Data from 2016"),
                       p("The plots shown below display data taken from the Gun Violence Archive on the number of instances of gun violence
@@ -119,7 +122,25 @@ ui <- fluidPage(
                           plotlyOutput("shootingPlot")
                         )
                       )
-             )
+             ),
+             tabPanel("Summary and Conclusions",
+                      titlePanel("Summary and Conclusions"),
+                      sidebarLayout(
+                        
+                        sidebarPanel( h1("What Did We Find?")
+                        ),
+                        mainPanel(
+                          p("When analyzing the amount of firearm regulations by year and state, we found that there was generally a nationwide increase in the amount of regulations, although the amount of regulations in states varied dramatically. We found that coastal states, such as Massachusetts and California, have much more regulations on firearms than states such as Idaho and Kentucky. Areas that have a more concentrated population tend to have a higher amount of gun regulation as well. This could be due to a higher level of crime which may lead these areas to pass more gun legislation."),
+                          br(),
+                          br(),
+                          p("When analyzing the data regarding the correlation between gun violence and the level of provisions available in a state, we discovered that there seems to be a negative correlation between the number of gun provisions and the amount of gun violence in the state. In other words, the amount of gun violence found in a state seems to fall when the amount of gun provisions increases, and vice versa. There is data, however, that shows that mass shootings and gun violence on the part of police officers increases when the amount of gun provisions increases."),
+                          br(),
+                          br(),
+                          p("Overall, it seems to be that more gun regulations does not directly lead to a substantial decrease in gun violence. Therefore, it may be that gun violence is an issue that may be better solved with some additional gun regulations, but with increased focus on other social issues facing the United States. ")
+                          
+                        )
+                      )
+              )
   
 
   )
