@@ -4,10 +4,10 @@
 data <- read.csv("data/raw_data.csv", stringsAsFactors = FALSE)
 
 
-
 server <- function(input, output) {
   
   # output for analysis1
+
   # map output
   output$Map <- renderPlotly ({
     map <- map_data("state")
@@ -94,6 +94,7 @@ server <- function(input, output) {
       ggplotly(tooltip = 'label')
     }
     shooting_frequency_with_ordinances(input$selected_incident_type)
+    
   })
   
 }

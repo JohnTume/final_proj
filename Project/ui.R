@@ -6,7 +6,6 @@ library(dplyr)
 library(plotly)
 
 # load data set
-
 provisions_data <- read.csv("data/raw_data.csv", stringsAsFactors = FALSE)
 
 # The user interface of the app
@@ -79,6 +78,5 @@ ui <- fluidPage(
              )
   
 
-    
   )
 )
