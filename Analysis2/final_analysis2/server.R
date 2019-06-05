@@ -35,16 +35,17 @@ shooting_frequency_with_ordinances <- function(incident_type){
   names(frequencies)[names(frequencies) == "Var1"] <- "state"
   total_frame <- inner_join(provisions_data, frequencies, by = "state")
   total_frame <- filter(total_frame, Freq != 0)
+  Information <- paste0(total_frame$state, ", Number of provisions: ", total_frame$lawtotal, ", # of Incidents: ", total_frame$Freq)
   total_frame %>% 
-    ggplot(aes(x = Freq, y = lawtotal, text = paste0(total_frame$state, ", Number of provisions: ", total_frame$lawtotal, 
-                                                     ", # of Incidents: ", total_frame$Freq))) +
+     ggplot(aes(x = Freq, y = lawtotal, label = Information)) +
+    #ggplot(aes(x = Freq, y = lawtotal)) +
     geom_point(size = 3) +
     geom_smooth(method="lm", se=FALSE, fullrange=TRUE, level=0.95) +
-    labs(x = "Number of occurrences of gun violence incidents", y = "Number of gun provisions (max: 133)") +
+    labs(x = "Number of occurrences of gun violence incidents", y = "Number of gun provisions in state (max: 133)") +
     theme(axis.title = element_text(size = 12),
           axis.text = element_text(size = 12))
   
-  ggplotly(tooltip = 'text')
+  ggplotly(tooltip = 'label')
 }
 
 
@@ -53,12 +54,5 @@ shinyServer(function(input, output) {
    output$shootingPlot <- renderPlotly ({
      shooting_frequency_with_ordinances(input$selected_incident_type)
    })
-   
-   # output$debug <- renderTable ({
-   #   selected_data <- transform_data(read.csv(paste0(input$selected_incident_type)))
-   #   frequencies <- as.data.frame(table(selected_data$State))
-   #   names(frequencies)[names(frequencies) == "Var1"] <- "state"
-   #   inner_join(provisions_data, frequencies, by = "state")
-   # })
    
 })

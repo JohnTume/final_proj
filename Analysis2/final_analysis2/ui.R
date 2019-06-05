@@ -20,7 +20,7 @@ shinyUI(fluidPage(
     that occur in each state. The original data also separates occurrences of gun violence by the type of violence
     that occurred (e.g. incidents involving police officers)."),
   br(),
-  p("Some interesting results are that, in general, there is a roughly negative correlatio between the number of gun provisions
+  p("Some interesting results are that, in general, there is a roughly negative correlation between the number of gun provisions
     and the number of gun violence incidents -- that is to say that (again, in general) the amount of accidental gun violence
     tends to decrease with a greater number of gun ownership provisions. However, mass shootings in 2016 and police involvement
     in gun violence seemed to roughly increase with the number of gun provisions."),
@@ -43,8 +43,7 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotlyOutput("shootingPlot"),
-       tableOutput("debug")
+       plotlyOutput("shootingPlot")
     )
   )
 ))
