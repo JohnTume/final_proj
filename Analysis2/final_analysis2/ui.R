@@ -8,12 +8,23 @@
 #
 
 library(shiny)
+library(shinythemes)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
+  theme = shinytheme("slate"),
   
   # Application title
   titlePanel("Number of Firearm Provisions vs Number of Gun Violence Incidents (by state); Data from 2016"),
+  p("The plots shown below display data taken from the Gun Violence Archive on the number of instances of gun violence
+    that occur in each state. The original data also separates occurrences of gun violence by the type of violence
+    that occurred (e.g. incidents involving police officers)."),
+  br(),
+  p("Some interesting results are that, in general, there is a roughly negative correlatio between the number of gun provisions
+    and the number of gun violence incidents -- that is to say that (again, in general) the amount of accidental gun violence
+    tends to decrease with a greater number of gun ownership provisions. However, mass shootings in 2016 and police involvement
+    in gun violence seemed to roughly increase with the number of gun provisions."),
+  hr(),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -32,10 +43,8 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("shootingPlot"),
-       hr(),
-       textOutput("analysis1"),
-       textOutput("analysis2")
+       plotlyOutput("shootingPlot"),
+       tableOutput("debug")
     )
   )
 ))

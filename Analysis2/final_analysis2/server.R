@@ -11,6 +11,7 @@ library(shiny)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(plotly)
 
 # the number of gun provisions in each state in 2016, out of a maximum possible of 133 provisions
 provisions_data <- read.csv("data/raw_data.csv", stringsAsFactors = FALSE) %>% 
@@ -33,33 +34,31 @@ shooting_frequency_with_ordinances <- function(incident_type){
   frequencies <- as.data.frame(table(selected_data$State))
   names(frequencies)[names(frequencies) == "Var1"] <- "state"
   total_frame <- inner_join(provisions_data, frequencies, by = "state")
+  total_frame <- filter(total_frame, Freq != 0)
   total_frame %>% 
-    ggplot(aes(x = Freq, y = lawtotal)) +
-    geom_point(size = 4) +
+    ggplot(aes(x = Freq, y = lawtotal, text = paste0(total_frame$state, ", Number of provisions: ", total_frame$lawtotal, 
+                                                     ", # of Incidents: ", total_frame$Freq))) +
+    geom_point(size = 3) +
     geom_smooth(method="lm", se=FALSE, fullrange=TRUE, level=0.95) +
     labs(x = "Number of occurrences of gun violence incidents", y = "Number of gun provisions (max: 133)") +
-    theme(axis.title = element_text(size = 16),
-          axis.text = element_text(size = 16))
+    theme(axis.title = element_text(size = 12),
+          axis.text = element_text(size = 12))
+  
+  ggplotly(tooltip = 'text')
 }
 
 
 # Define server logic required to draw scatterplot
 shinyServer(function(input, output) {
-   output$shootingPlot <- renderPlot ({
+   output$shootingPlot <- renderPlotly ({
      shooting_frequency_with_ordinances(input$selected_incident_type)
    })
    
-   output$analysis1 <- renderText ({
-     print("The plots shown above display data taken from the Gun Violence Archive on the number of instances of gun violence
-           that occur in each state. The original data also separates occurrences of gun violence by the type of violence
-           that occurred (e.g. incidents involving police officers).")
-   })
-   
-   output$analysis2 <- renderText({
-     print("Some interesting results are that, in general, there is a roughly negative correlatio between the number of gun provisions
-           and the number of gun violence incidents -- that is to say that (again, in general) the amount of accidental gun violence
-           tends to decrease with a greater number of gun ownership provisions. However, mass shootings in 2016 and police involvement
-           in gun violence seemed to roughly increase with the number of gun provisions.")
-   })
+   # output$debug <- renderTable ({
+   #   selected_data <- transform_data(read.csv(paste0(input$selected_incident_type)))
+   #   frequencies <- as.data.frame(table(selected_data$State))
+   #   names(frequencies)[names(frequencies) == "Var1"] <- "state"
+   #   inner_join(provisions_data, frequencies, by = "state")
+   # })
    
 })
