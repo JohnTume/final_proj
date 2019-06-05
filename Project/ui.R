@@ -4,6 +4,9 @@ library(shinythemes)
 library(ggplot2)
 library(dplyr)
 library(plotly)
+library(maps)
+library(lubridate)
+library(mapproj)
 
 # load data set
 provisions_data <- read.csv("data/raw_data.csv", stringsAsFactors = FALSE)
