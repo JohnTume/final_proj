@@ -37,7 +37,7 @@ server <- function(input, output) {
     
     ggplot(filtered_data) +
       geom_line(mapping = aes(x = year, y = lawtotal), color = "coral", size = 1.5) +
-      labs(title = paste0("The total number of laws over year in ", input$state)) +
+      labs(title = paste0("The total number of gun provisions over time in ", input$state, " (out of 130 total)")) +
       theme(plot.title = element_text(hjust = 0.5, size = 18))
   })
   
