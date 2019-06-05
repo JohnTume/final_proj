@@ -6,7 +6,7 @@ library(dplyr)
 library(plotly)
 
 # load data set
-map <- map_data("state")
+
 data <- read.csv("data/raw_data.csv", stringsAsFactors = FALSE)
 
 # The user interface of the app
@@ -14,9 +14,10 @@ ui <- fluidPage(
    theme = shinytheme("slate"),
    titlePanel("Number of Gun Legislation In States Over Year"),
    hr(),
-   p("The map depicts the number of firearm laws in all the states over year (1991 - 2017), as the state with deeper color has more gun legislation in the given year. The line chart below shows the change of number of gun legislations in a selected state over year. 
+   p("The map depicts the number of firearm laws in all the states over year (1991 - 2017), as the state with deeper color has more gun legislation in the given year. The line chart below shows the change of number of gun legislations in a selected state over year."),
 
-     From the two graphs, we can observe a nation-level increase of the number of firearm laws, with the average continues to increase over year. Yet, among the country, the range of the law number is large and increases over year. Some states such as California and Massachusetts shows a drastic increasing trend and maintains a number around 80 to 100 in most of the observed years. On the other hand, states such as Idaho and Kentucky has a stable trend of change over year and maintain a number within 10. Though more factors should be included in discussion and further considered, we generally observe a trend that the states, especially in the coastal areas, which has relatively developed economy and productivity as well as more concentrated populations, issued more laws to restrict the sale of firearm. Because the regions with concentrated population could have more frequent criminal incidents, we also hypothesize that there could be relationship between criminal rate and the number of firearm laws and will further explore in the later sections. 
+
+   p("From the two graphs, we can observe a nation-level increase of the number of firearm laws, with the average continues to increase over year. Yet, among the country, the range of the law number is large and increases over year. Some states such as California and Massachusetts shows a drastic increasing trend and maintains a number around 80 to 100 in most of the observed years. On the other hand, states such as Idaho and Kentucky has a stable trend of change over year and maintain a number within 10. Though more factors should be included in discussion and further considered, we generally observe a trend that the states, especially in the coastal areas, which has relatively developed economy and productivity as well as more concentrated populations, issued more laws to restrict the sale of firearm. Because the regions with concentrated population could have more frequent criminal incidents, we also hypothesize that there could be relationship between criminal rate and the number of firearm laws and will further explore in the later sections. 
      "),
    br(),
    
@@ -55,16 +56,14 @@ server <- function(input, output) {
      map_data <- full_join(map, filtered_data, by = c("region" = "state"))
      
      plot <- ggplot(map_data, aes(long, lat)) +
-       geom_polygon(aes(group = group, fill = lawtotal, text = paste(lawtotal, region)), color = "white") +
+       geom_polygon(aes(group = group, fill = lawtotal, text = paste("there are", lawtotal, "laws in", region)), color = "white") +
        labs(title = paste0("Overall gun legislation distribution in ", input$years)) +
        scale_fill_continuous(low='thistle2', high='darkred', limits = c(0, 133), 
                       guide='colorbar') +
-       #scale_x_continuous(limits = c(50, 100)) +
-       #scale_y_continuous(limits = c(50, 100)) +
        theme(plot.title = element_text(hjust = 0.5, size = 20)) +
        coord_map() 
      
-     ggplotly(p = plot, tooltip = 'text')
+     ggplotly(tooltip = 'text')
    })
    
    # line chart output
