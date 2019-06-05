@@ -16,30 +16,30 @@ ui <- fluidPage(
                       # Title of the section
                       h1("Project Overview"),
                       hr(),
-                      p("The topic of our project is to research on the relationship between gun violence and firearm laws that restricts gun sale. The main purpose of our research is to answer the general question \" Do more gun legislations against gun sale and using actually ensure public's safety \", but we also explore questions with broader topics. We believe these questions are controversial, as there are both concerns about individuals' safety and doubts about limitation on gun using among public. In our research analysis, we focused on the policy of background checking, as it could reflect the general tendency of gun sale, but also explored other policies and their relationship with various types of incidents and crime. "),
+                      p("The focus of our project is to research on the relationship between gun violence and firearm laws and provisions that restrict gun sales. The main purpose of our research is to answer the general question: \"Do more gun legislations against gun sales and more background checks actually ensure public safety? \" We also explore broader questions -- we believe these questions are controversial, as there are both concerns about individuals' safety and doubts about limitations on gun using among the public. In our research analysis, we focused on the policy of background checking, as it offers an approximation for the number of gun sales, but also explored other policies and their relationship with various types of incidents of gun violence. "),
                       
                       img(src='2016-GUN-LAWS.jpg', align = "middle", height = 250, width = 600),
                       hr(),
                       h2("- Audience"),
-                      p("While our report concerns general safety issue with gun restriction, which is related to every individuals' life, we hope to focus on explaining our results to gun lovers, who could oppose the gun legislations of gun. We hope to explain the reasonability of the firearm law to them if the research result shows more laws actually lead to better social safety, or support the stand of the gun lovers by showing there is not a strong relationship between the laws and crime or gun violence."),
+                      p("While our report is concerned with general safety issues and gun restrictions, which can affect many individuals' lives, we hope to focus on explaining our results to firearm advocates, who would oppose legislations on gun ownership. We hope to explain the reasonability of firearm restrictions to them if the research results show more laws actually lead to increased safety, or support the view of firearm advocates by showing that there is not a strong relationship between increased gun restrictions and gun violence, depending on what the data shows."),
                       
                       # Introduce the data
                       h2("- Data"),
                       p("1. ",
-                      a("background checking data:", href = "https://github.com/BuzzFeedNews/nics-firearm-background-checks"),
+                      a("Background checking data:", href = "https://github.com/BuzzFeedNews/nics-firearm-background-checks"),
     "Comes from the FBI's National Instant Criminal Background Check System.
-    Provides data on number of firearm checks by month, state, and type"),
+    Provides data on number of firearm checks by month, state, and type of weapon"),
                       p("2. ",
-                      a("gun violence data set:", href = "https://www.kaggle.com/gunviolencearchive/gun-violence-database"),
+                      a("Gun violence data set:", href = "https://www.kaggle.com/gunviolencearchive/gun-violence-database"),
     "This dataset is comprised of a collection of incidents involving gun violence between January 1, 2013 to March 31, 2018 from http://www.gunviolencearchive.org.
     Provides data on date, location, number of deaths/injuries, congressional district, etc."),
                       p("3. ",
-                        a("provisions data set:", href = "https://www.kaggle.com/jboysen/state-firearms"),
-    "Covers all 50 states from 1991 through 2017
+                        a("Gun provisions data set:", href = "https://www.kaggle.com/jboysen/state-firearms"),
+    "Covers all 50 states from 1991 through 2017;
     Includes data regarding the amount of regulations covering the sale of ammunition, such as licenses, background checks, and minimum age to legally purchase ammunition. 
     "),
                       
-                      h2("- What are some interesting questions?"),
+                      h2("- What are some interesting questions we can pose with this data?"),
                       column(4,
                              h4("A. How has the amount of restrictions on guns varied by state over the years?")
                       ),
@@ -47,7 +47,7 @@ ui <- fluidPage(
                              h4("B. How does the amount of gun violence in a certain time period correlate with the amount of gun regulations/restrictions in place during that time period?")
                       ),
                       column(4,
-                             h4("C. How does the amount of crime, such as robberies, during a certain time period correlate with the amount of gun legislation during that same time period?")
+                             h4("C. Does the number of background checks for firearms in a state correlate with the level of gun violence in that state?")
                       ),
                       br(),
                       hr(),
