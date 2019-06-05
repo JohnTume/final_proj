@@ -89,7 +89,7 @@ ui <- fluidPage(
                         )
                       )
              ),
-             tabPanel("Gun Violence",
+             tabPanel("Firearm Provisions & Gun Violence (2016)",
                       # Application title
                       titlePanel("Number of Firearm Provisions vs Number of Gun Violence Incidents (by state); Data from 2016"),
                       p("The plots shown below display data taken from the Gun Violence Archive on the number of instances of gun violence
