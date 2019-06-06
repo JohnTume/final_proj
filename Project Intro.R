@@ -47,5 +47,3 @@
 # of gun legislation during that same time period?
 
 # These questions are explained by analysis on the next pages in sequence
-
-
