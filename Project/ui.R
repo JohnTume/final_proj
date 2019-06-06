@@ -4,8 +4,8 @@ library(shinythemes)
 library(ggplot2)
 library(dplyr)
 library(plotly)
-library(maps)
 library(lubridate)
+library(maps)
 library(mapproj)
 
 # load data set
@@ -19,7 +19,8 @@ ui <- fluidPage(
                       # Title of the section
                       h1("Project Overview"),
                       hr(),
-                      p("The focus of our project is to research on the relationship between gun violence and firearm laws and provisions that restrict gun sales. The main purpose of our research is to answer the general question: \"Do more gun legislations against gun sales and more background checks actually ensure public safety? \" We also explore broader questions -- we believe these questions are controversial, as there are both concerns about individuals' safety and doubts about limitations on gun using among the public. In our research analysis, we focused on the policy of background checking, as it offers an approximation for the number of gun sales, but also explored other policies and their relationship with various types of incidents of gun violence. "),
+                      hr(),
+                      p("The focus of our project is to research on the relationship between gun violence and firearm laws and provisions that restrict gun sales. The main purpose of our research is to answer the general question: \"Do more gun legislations against gun sales and more background checks actually ensure public safety? \" We also explore broader questions -- we believe these questions are controversial, as there are both concerns about individuals' safety and doubts about limitations on gun using among the public. In our research analysis, we explored various policies and their relationship with various types of incidents of gun violence. "),
                       
                       img(src='2016-GUN-LAWS.jpg', align = "middle", height = 250, width = 600),
                       hr(),
@@ -29,14 +30,10 @@ ui <- fluidPage(
                       # Introduce the data
                       h2("- Data"),
                       p("1. ",
-                      a("Background checking data:", href = "https://github.com/BuzzFeedNews/nics-firearm-background-checks"),
-    "Comes from the FBI's National Instant Criminal Background Check System.
-    Provides data on number of firearm checks by month, state, and type of weapon"),
-                      p("2. ",
                       a("Gun violence data set:", href = "https://www.kaggle.com/gunviolencearchive/gun-violence-database"),
     "This dataset is comprised of a collection of incidents involving gun violence between January 1, 2013 to March 31, 2018 from http://www.gunviolencearchive.org.
     Provides data on date, location, number of deaths/injuries, congressional district, etc."),
-                      p("3. ",
+                      p("2. ",
                         a("Gun provisions data set:", href = "https://www.kaggle.com/jboysen/state-firearms"),
     "Covers all 50 states from 1991 through 2017;
     Includes data regarding the amount of regulations covering the sale of ammunition, such as licenses, background checks, and minimum age to legally purchase ammunition. 
@@ -44,13 +41,13 @@ ui <- fluidPage(
                       
                       h2("- What are some interesting questions we can pose with this data?"),
                       column(4,
-                             h4("A. How has the amount of restrictions on guns varied by state over the years?")
+                             h4("A. How has the number of restriction laws on guns varied by state over the years?")
                       ),
                       column(4,
-                             h4("B. How does the amount of gun violence in a certain time period correlate with the amount of gun regulations/restrictions in place during that time period?")
+                             h4("B. What is the trend of change on the number of firearm laws over year in each state?")
                       ),
                       column(4,
-                             h4("C. Does the number of background checks for firearms in a state correlate with the level of gun violence in that state?")
+                             h4("C. How does the amount of gun violence in a certain time period correlate with the amount of gun regulations/restrictions in place during that time period?")
                       ),
                       br(),
                       hr(),
@@ -62,7 +59,7 @@ ui <- fluidPage(
                       p("- John Tumenbayar"),
                       p("- Ivan Lancaster")
              ),
-             tabPanel("Years & States",
+             tabPanel("Overal Trend Over Years",
                       titlePanel("Number of Gun Legislation In States Over Year"),
                       hr(),
                       p("The map depicts the number of firearm laws in all the states over year (1991 - 2017), as the state with deeper color has more gun legislation in the given year. The line chart below shows the change of number of gun legislations in a selected state over year."),
@@ -77,18 +74,37 @@ ui <- fluidPage(
                                       "Select year:",
                                       min = 1991,
                                       max = 2017,
-                                      value = 5),
-                          selectInput("state", label = h3("Select your state:"), 
-                                      choices = unique(provisions_data$state),
-                                      selected = "Alabama")
+                                      value = 5)
                         ),
                         
                         mainPanel(
                           plotlyOutput("Map"),
                           br(),
-                          textOutput("Mapdescription"),
-                          hr(),
-                          plotOutput("Linechart")
+                          textOutput("Mapdescription")
+                        )
+                      )
+             ), 
+             tabPanel("Firearm laws change in states", 
+                      # Section title
+                      titlePanel("Firearm laws change in states"),
+                      hr(),
+                      p("This line chart shows how the number of laws in the given state changes over year (1990 - 2017). Users can select the state you care about by using the select box and to choose the state they care about.
+
+                        As observed in the previous section, there is a general increasing trend over year in most of the states. However, we found that the states have a intense increasing over the observed year period mostly already have 15 to 30 laws at the beginning of the period, while the state have stable or decreasing change on the number of laws mostly have fewer (0 to 15) laws. Additionally, we observed that many of the states have an either decreasing or stable variation from 2003 to 2010 (one typical state is Washington). 
+                        "),
+                      br(),
+                      # Sidebar with a slider input for number of bins 
+                      sidebarLayout(
+                        sidebarPanel(
+                          selectInput("state", label = h3("Select your state:"), 
+                                      choices = unique(provisions_data$state),
+                                      selected = "Alabama")
+                        ),
+                        
+                        
+                        # Show a plot of the generated distribution
+                        mainPanel(
+                          plotlyOutput("Linechart")
                         )
                       )
              ),
@@ -133,6 +149,8 @@ ui <- fluidPage(
                         sidebarPanel( h1("What Did We Find?")
                         ),
                         mainPanel(
+                          h2("Thank you for viewing our work!"),
+                          br(),
                           p("When analyzing the amount of firearm regulations by year and state, we found that there was generally a nationwide increase in the amount of regulations, although the amount of regulations in states varied dramatically. We found that coastal states, such as Massachusetts and California, have much more regulations on firearms than states such as Idaho and Kentucky. Areas that have a more concentrated population tend to have a higher amount of gun regulation as well. This could be due to a higher level of crime which may lead these areas to pass more gun legislation."),
                           br(),
                           br(),
